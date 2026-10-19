@@ -1,0 +1,44 @@
+{
+    "sample_id": "S001",
+    "sample_name": "ctfmon.exe",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+
+    "dynamic_indicators": {
+        "process_activity": true,
+        "child_process_activity": false,
+        "file_activity": true,
+        "registry_activity": true,
+        "dll_activity": false,
+        "environment_checks": false,
+        "timing_behavior": false,
+        "process_checks": false
+    },
+
+    "event_counts": {
+        "total_events": 32,
+        "process_events": 10,
+        "file_events": 10,
+        "registry_events": 12,
+        "dll_events": 0
+    },
+
+    "evidence": {
+        "process_activity": [
+            "Thread Create operations observed in Procmon6.exe (PID 11532)",
+            "Thread Create operation observed in System process (PID 4)"
+        ],
+        "file_activity": [
+            "ReadFile operation by lsass.exe on C:\\Windows\\...",
+            "CreateFile and ReadFile operations by QHActiveD (PID 4064) on C:\\Program Files\\...",
+            "ReadFile operation by ctfmon.exe (PID 12180)"
+        ],
+        "registry_activity": [
+            "RegOpenKey and RegQueryValue operations on HKLM\\System and HKLM\\HARDWARE",
+            "RegOpenKey operation on HKCU\\Software by Explorer.EXE"
+        ],
+        "dll_activity": [],
+        "environment_checks": [],
+        "timing_behavior": [],
+        "process_checks": []
+    }
+}
