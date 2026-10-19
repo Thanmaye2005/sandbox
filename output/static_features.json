@@ -1,0 +1,145 @@
+[
+  {
+    "file_info": {
+      "filename": "sample.exe",
+      "filepath": "C:\\Users\\HP\\OneDrive\\Desktop\\sandbox\\samples\\sample.exe",
+      "file_size": 1536,
+      "md5": "0984d87733868e6c08e0979b442922ff",
+      "sha1": "4414ef9dc669873bb0b1a24ed50893984204a556",
+      "sha256": "dc419421faaea0cc3a69a7e9117d5c7f83bf1402ba1e499dea69070b13fe5c4e",
+      "is_valid_pe": true,
+      "entry_point": "0x1000",
+      "subsystem": 3
+    },
+    "pe_summary": {
+      "num_sections": 1,
+      "max_section_entropy": 4.087,
+      "avg_section_entropy": 4.087,
+      "has_high_entropy_section": false,
+      "total_dlls": 2,
+      "total_imported_functions": 14,
+      "packing_heuristic": {
+        "is_packed": false,
+        "suspicious_section_names": [],
+        "high_entropy_sections": [],
+        "has_high_entropy_overlay": false,
+        "packer_strings": [],
+        "file_entropy": 3.305
+      }
+    },
+    "strings_summary": {
+      "total_strings": 33,
+      "unique_strings": 33,
+      "ip_count": 0,
+      "url_count": 0,
+      "registry_key_count": 1,
+      "driver_references": [
+        "VBoxMouse.sys",
+        "vmmouse.sys"
+      ]
+    },
+    "anti_analysis_indicators": {
+      "vm_detection": {
+        "detected": true,
+        "matched_apis": [],
+        "matched_strings": [
+          "VBoxGuestAdditions",
+          "HARDWARE\\DEVICEMAP\\Scsi\\Scsi Port 0\\Scsi Bus 0\\Target Id 0\\Logical Unit Id 0",
+          "C:\\agent\\agent.py",
+          "QEMU HARDDISK",
+          "00:05:69:AA:BB:CC",
+          "VBoxMouse.sys",
+          "vmtoolsd.exe",
+          "sample.exe",
+          "vmmouse.sys",
+          "sandbox",
+          "08:00:27:00:00:00"
+        ],
+        "api_count": 0,
+        "string_count": 11,
+        "total_indicators": 11,
+        "evidence": [
+          "Strings matching VM/Hypervisor signatures: VBoxGuestAdditions, HARDWARE\\DEVICEMAP\\Scsi\\Scsi Port 0\\Scsi Bus 0\\Target Id 0\\Logical Unit Id 0, C:\\agent\\agent.py, QEMU HARDDISK, 00:05:69:AA:BB:CC"
+        ]
+      },
+      "debugger_detection": {
+        "detected": true,
+        "matched_apis": [
+          "checkremotedebuggerpresent",
+          "isdebuggerpresent",
+          "findwindowa"
+        ],
+        "matched_strings": [
+          "x64dbg",
+          "ida.exe",
+          "Wireshark",
+          "Process Hacker",
+          "ollydbg"
+        ],
+        "api_count": 3,
+        "string_count": 5,
+        "total_indicators": 8,
+        "evidence": [
+          "Anti-debugging APIs imported: checkremotedebuggerpresent, isdebuggerpresent, findwindowa",
+          "Debugger or analysis tool names found: x64dbg, ida.exe, Wireshark, Process Hacker, ollydbg"
+        ]
+      },
+      "environment_checks": {
+        "detected": true,
+        "matched_apis": [
+          "process32first",
+          "process32next",
+          "globalmemorystatusex",
+          "createtoolhelp32snapshot"
+        ],
+        "matched_strings": [
+          "sample.exe",
+          "sandbox"
+        ],
+        "api_count": 4,
+        "string_count": 2,
+        "total_indicators": 6,
+        "evidence": [
+          "Hardware/environment enumeration APIs: process32first, process32next, globalmemorystatusex, createtoolhelp32snapshot",
+          "Environment check patterns: sample.exe, sandbox"
+        ]
+      },
+      "timing_checks": {
+        "detected": true,
+        "has_timing_pair": true,
+        "matched_apis": [
+          "queryperformancecounter",
+          "gettickcount",
+          "sleep"
+        ],
+        "matched_strings": [
+          "GetTickCount",
+          "QueryPerformanceCounter"
+        ],
+        "api_count": 3,
+        "string_count": 2,
+        "total_indicators": 5,
+        "evidence": [
+          "Timing APIs imported: queryperformancecounter, gettickcount, sleep",
+          "Heuristic hit: High-resolution timer paired with sleep delay (evasion pattern)",
+          "Timing check strings: GetTickCount, QueryPerformanceCounter"
+        ]
+      },
+      "summary": {
+        "total_indicators": 30,
+        "categories_triggered_count": 4,
+        "any_anti_analysis_detected": true
+      }
+    },
+    "preliminary_assessment": {
+      "static_risk_score": 80.0,
+      "static_risk_level": "HIGH",
+      "risk_factors": [
+        "VM / Hypervisor evasion indicators detected",
+        "Anti-debugging techniques detected",
+        "Environment / Sandbox fingerprinting checks detected",
+        "Timing manipulation / delay checks detected"
+      ]
+    }
+  }
+]
